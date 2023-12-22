@@ -1,0 +1,25 @@
+{
+  "annotations": {
+    "changelogDate": "20231222122346"
+  },
+  "applications": "*",
+  "entityTableName": "tag",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    }
+  ],
+  "name": "Tag",
+  "relationships": [
+    {
+      "otherEntityName": "article",
+      "otherEntityRelationshipName": "tag",
+      "relationshipName": "article",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

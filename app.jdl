@@ -7,6 +7,14 @@ entity Article {
     updatedAt ZonedDateTime
 }
 
+entity Tag {
+    name String required unique
+}
+
 relationship ManyToOne {
     Article{user} to User with builtInEntity
+}
+
+relationship ManyToMany {
+    Article to Tag
 }

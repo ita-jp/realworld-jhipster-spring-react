@@ -8,7 +8,8 @@
       "entities": {
         "main": "エンティティ",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "article": "Article"
+        "article": "Article",
+        "tag": "Tag"
       },
       "account": {
         "main": "アカウント",

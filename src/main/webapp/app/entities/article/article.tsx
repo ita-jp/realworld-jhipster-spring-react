@@ -113,6 +113,9 @@ export const Article = () => {
                 <th>
                   <Translate contentKey="conduitApp.article.user">User</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  <Translate contentKey="conduitApp.article.tag">Tag</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -131,6 +134,16 @@ export const Article = () => {
                   <td>{article.createdAt ? <TextFormat type="date" value={article.createdAt} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{article.updatedAt ? <TextFormat type="date" value={article.updatedAt} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{article.user ? article.user.id : ''}</td>
+                  <td>
+                    {article.tags
+                      ? article.tags.map((val, j) => (
+                          <span key={j}>
+                            <Link to={`/tag/${val.id}`}>{val.id}</Link>
+                            {j === article.tags.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/article/${article.id}`} color="info" size="sm" data-cy="entityDetailsButton">
