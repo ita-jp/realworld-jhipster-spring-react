@@ -1,0 +1,8 @@
+entity Article {
+    slug String required unique
+    title String
+    description String
+    body String
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+}
