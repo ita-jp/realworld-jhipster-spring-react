@@ -68,6 +68,10 @@ export const ArticleDetail = () => {
             </span>
           </dt>
           <dd>{articleEntity.updatedAt ? <TextFormat value={articleEntity.updatedAt} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
+          <dt>
+            <Translate contentKey="conduitApp.article.user">User</Translate>
+          </dt>
+          <dd>{articleEntity.user ? articleEntity.user.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/article" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

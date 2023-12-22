@@ -6,3 +6,7 @@ entity Article {
     createdAt ZonedDateTime
     updatedAt ZonedDateTime
 }
+
+relationship ManyToOne {
+    Article{user} to User with builtInEntity
+}

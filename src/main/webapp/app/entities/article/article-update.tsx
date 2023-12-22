@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IArticle } from 'app/shared/model/article.model';
 import { getEntity, updateEntity, createEntity, reset } from './article.reducer';
 
@@ -19,6 +21,7 @@ export const ArticleUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const users = useAppSelector(state => state.userManagement.users);
   const articleEntity = useAppSelector(state => state.article.entity);
   const loading = useAppSelector(state => state.article.loading);
   const updating = useAppSelector(state => state.article.updating);
@@ -34,6 +37,8 @@ export const ArticleUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getUsers({}));
   }, []);
 
   useEffect(() => {
@@ -53,6 +58,7 @@ export const ArticleUpdate = () => {
     const entity = {
       ...articleEntity,
       ...values,
+      user: users.find(it => it.id.toString() === values.user.toString()),
     };
 
     if (isNew) {
@@ -72,6 +78,7 @@ export const ArticleUpdate = () => {
           ...articleEntity,
           createdAt: convertDateTimeFromServer(articleEntity.createdAt),
           updatedAt: convertDateTimeFromServer(articleEntity.updatedAt),
+          user: articleEntity?.user?.id,
         };
 
   return (
@@ -134,6 +141,16 @@ export const ArticleUpdate = () => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
               />
+              <ValidatedField id="article-user" name="user" data-cy="user" label={translate('conduitApp.article.user')} type="select">
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/article" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

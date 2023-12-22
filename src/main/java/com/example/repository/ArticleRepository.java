@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.domain.Article;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ArticleRepository extends JpaRepository<Article, Long> {}
+public interface ArticleRepository extends JpaRepository<Article, Long> {
+    @Query("select article from Article article where article.user.login = ?#{authentication.name}")
+    List<Article> findByUserIsCurrentUser();
+}

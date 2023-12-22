@@ -39,6 +39,9 @@ public class Article implements Serializable {
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -130,6 +133,19 @@ public class Article implements Serializable {
 
     public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Article user(User user) {
+        this.setUser(user);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
